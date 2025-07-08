@@ -11,7 +11,7 @@ return {
   },
   lazy = false,
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '\\', ':Neotree toggle<CR>', desc = 'NeoTree toggle' },
   },
   opts = {
     filesystem = {
@@ -19,7 +19,9 @@ return {
         mappings = {
           ['\\'] = 'close_window',
         },
+        position = 'right',
       },
+      hijack_netrw_behavior = 'open_current',
     },
   },
 }
