@@ -239,6 +239,29 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+-- NOTE: helper to create `formatters_by_ft` table
+local formatters_by_ft_from_table = function(formatters, fts)
+  -- Create an empty table to store the results.
+  local result = {}
+  -- Iterate through each element in the second list.
+  for _, element in ipairs(fts) do
+    -- Assign the first list as the value for each element in the second list.
+    result[element] = formatters
+  end
+  -- Return the resulting table.
+  return result
+end
+
+local spread_table = function(...)
+  local result = {}
+  for _, t in ipairs { ... } do
+    for k, v in pairs(t) do
+      result[k] = v
+    end
+  end
+  return result
+end
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -755,6 +778,8 @@ require('lazy').setup({
     end,
   },
 
+  { 'numToStr/Comment.nvim', opts = {} },
+
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
@@ -786,13 +811,18 @@ require('lazy').setup({
         --   }
         -- end
       end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      -- Conform can also run multiple formatters sequentially
+      -- python = { "isort", "black" },
+      --
+      -- You can use 'stop_after_first' to run the first available formatter from the list
+      formatters_by_ft = spread_table(
+        { lua = { 'stylua' } },
+        formatters_by_ft_from_table({ 'prettier' }, { 'astro', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'yaml', 'json', 'jsonc' })
+      ),
+      formatters = {
+        prettier = {
+          require_cwd = true,
+        },
       },
     },
   },
@@ -876,6 +906,7 @@ require('lazy').setup({
       sources = {
         default = {
           'lsp',
+          'buffer',
           'path', --[[ 'snippets', ]]
           'lazydev',
         },
