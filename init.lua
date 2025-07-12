@@ -469,6 +469,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[S]earch Resume [L]ast' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch [R]ecent Files' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>go', builtin.git_status, { desc = '[S]earch [G]it Status' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -612,6 +613,8 @@ require('lazy').setup({
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+          map('grs', require('telescope.builtin').lsp_document_symbols, '[G]oto Lsp [S]ymbols')
+          map('grw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[G]oto Lsp [W]orkspace Symbols')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
