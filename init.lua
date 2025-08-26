@@ -1151,6 +1151,21 @@ require('lazy').setup({
     keys = { { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' } },
   },
   { 'windwp/nvim-ts-autotag', lazy = false },
+  {
+    'sphamba/smear-cursor.nvim',
+    opts = {
+      distance_stop_animating = 0.5,
+      never_draw_over_target = false,
+      stiffness = 0.5,
+      trailing_stiffness = 0.6,
+      matrix_pixel_threshold = 0.5,
+      stiffness_insert_mode = 0.7,
+      trailing_stiffness_insert_mode = 0.7,
+      damping = 0.95,
+      damping_insert_mode = 0.95,
+      time_interval = 10,
+    },
+  },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
