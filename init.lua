@@ -1150,20 +1150,35 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = { { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' } },
   },
-  { 'windwp/nvim-ts-autotag', lazy = false },
+  {
+    'windwp/nvim-ts-autotag',
+    lazy = false,
+    confing = function()
+      require('nvim-ts-autotag').setup {
+        opts = {
+          enable_close = true,
+          enable_rename = true,
+          enable_close_on_slash = true,
+        },
+      }
+    end,
+  },
   {
     'sphamba/smear-cursor.nvim',
+    enabled = false,
     opts = {
-      distance_stop_animating = 0.5,
+      distance_stop_animating = 0.8,
       never_draw_over_target = false,
-      stiffness = 0.5,
-      trailing_stiffness = 0.6,
+      stiffness = 0.8,
+      trailing_stiffness = 1,
       matrix_pixel_threshold = 0.5,
       stiffness_insert_mode = 0.7,
-      trailing_stiffness_insert_mode = 0.7,
+      trailing_stiffness_insert_mode = 1,
       damping = 0.95,
-      damping_insert_mode = 0.95,
+      damping_insert_mode = 0.8,
       time_interval = 10,
+      smear_terminal_mode = true,
+      smear_insert_mode = false,
     },
   },
 
